@@ -30,21 +30,35 @@ module.exports = {
                 use: { loader: 'ts-loader' },
             },
             {
-                test: /\.(css|less)$/,
+                /**
+                 * 第三方组件的css.
+                 */
+                test: /\.css$/,
+                exclude: /src/,
                 use: [
                     {
                         loader: 'style-loader',
                     },
                     {
                         loader: 'css-loader',
-                        // options: {
-                        //     modules: true,
-                        //     importLoaders: 2,
-                        //     localIdentName: '[local]__[hash:base64:5]',
-                        //     minimize: {
-                        //         safe: true,
-                        //     },
-                        // },
+                    },
+                ],
+            },
+            {
+                /**
+                 * 组件的css, lcss.
+                 */
+                test: /\.(css|less)$/,
+                exclude: /node_modules/,
+                use: [
+                    {
+                        loader: 'style-loader',
+                    },
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            modules: true, // 开启模块化
+                        },
                     },
                     {
                         loader: 'less-loader',
@@ -86,15 +100,15 @@ module.exports = {
         //     test: /\.js/,
         // }),
     ],
-    optimization: {
-        splitChunks: {
-            cacheGroups: {
-                commons: {
-                    name: 'commons',
-                    chunks: 'initial',
-                    minChunks: 2,
-                },
-            },
-        },
-    },
+    // optimization: {
+    //     splitChunks: {
+    //         cacheGroups: {
+    //             commons: {
+    //                 name: 'commons',
+    //                 chunks: 'initial',
+    //                 minChunks: 2,
+    //             },
+    //         },
+    //     },
+    // },
 };

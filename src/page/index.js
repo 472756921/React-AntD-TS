@@ -1,5 +1,5 @@
 import React from 'react';
-import Styles from './index.css';
+import Styles from './index.less';
 
 export default class app extends React.Component {
     render() {
