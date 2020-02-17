@@ -4,7 +4,7 @@ const baseConfig = require('./webpack.config.base');
 
 module.exports = webpackMerge(baseConfig, {
     entry: {
-        main: './src/index.js',
+        main: './src/index.tsx',
     },
     output: {
         publicPath: '/',

@@ -1,6 +1,8 @@
 import React from 'react';
+import { Route, BrowserRouter, Switch } from 'react-router-dom';
 import { Layout, Menu, Breadcrumb, Icon } from 'antd';
-import Router_U from '../routes';
+
+import Home from '../page/index'
 
 const { SubMenu } = Menu;
 const { Header, Content, Footer, Sider } = Layout;
@@ -10,7 +12,7 @@ export default class SiderLayout extends React.Component {
         collapsed: false,
     };
 
-    onCollapse = collapsed => {
+    onCollapse = (collapsed: Boolean) => {
         console.log(collapsed);
         this.setState({ collapsed });
     };
@@ -68,7 +70,9 @@ export default class SiderLayout extends React.Component {
                             <Breadcrumb.Item>Bill</Breadcrumb.Item>
                         </Breadcrumb>
                         <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
-                            <Router_U />
+                            <Switch>
+                                <Route path="/Home" component={Home} />
+                            </Switch>
                         </div>
                     </Content>
                     <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>

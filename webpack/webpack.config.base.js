@@ -6,13 +6,14 @@ const CompressionWebpackPlugin = require('compression-webpack-plugin');
 
 module.exports = {
     entry: {
-        main: ['./src/index.js'],
+        main: ['./src/index.tsx'],
         vendor: ['react', 'react-dom', 'react-router', 'antd'],
     },
     output: {
         publicPath: './',
         filename: '[name].js',
         path: path.resolve(__dirname, '../dist'),
+        chunkFilename: '[name].[chunkhash:5].chunk.js', //添加chundkFilename
     },
     resolve: {
         extensions: ['.ts', '.tsx', '.js', '.jsx', 'less', 'css'],
@@ -27,13 +28,13 @@ module.exports = {
             {
                 test: /\.tsx?$/,
                 exclude: /node_modules/,
-                use: { loader: 'ts-loader' },
+                use: [{ loader: 'babel-loader' }, { loader: 'ts-loader' }],
             },
             {
                 /**
                  * 第三方组件的css.
                  */
-                test: /\.css$/,
+                test: /\.(css|less)$/,
                 exclude: /src/,
                 use: [
                     {
@@ -41,6 +42,9 @@ module.exports = {
                     },
                     {
                         loader: 'css-loader',
+                    },
+                    {
+                        loader: 'less-loader',
                     },
                 ],
             },
@@ -100,15 +104,15 @@ module.exports = {
         //     test: /\.js/,
         // }),
     ],
-    // optimization: {
-    //     splitChunks: {
-    //         cacheGroups: {
-    //             commons: {
-    //                 name: 'commons',
-    //                 chunks: 'initial',
-    //                 minChunks: 2,
-    //             },
-    //         },
-    //     },
-    // },
+    optimization: {
+        splitChunks: {
+            cacheGroups: {
+                commons: {
+                    name: 'commons',
+                    chunks: 'initial',
+                    minChunks: 2,
+                },
+            },
+        },
+    },
 };
